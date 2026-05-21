@@ -5,7 +5,7 @@ import ProductSelector from "./ProductSelector";
 import PriceChart from "./PriceChart";
 import MetricsCard from "./MetricsCard";
 
-const API_BASE = " https://retail-price-analytics-platform.onrender.com/api";
+const API_BASE = "https://retail-price-analytics-platform.onrender.com/api";
 
 function PriceDashboard() {
 
