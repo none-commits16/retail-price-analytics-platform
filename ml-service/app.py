@@ -1,12 +1,17 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
-
+import os
+import subprocess
 import pandas as pd
 import joblib
 
 app = Flask(__name__)
 CORS(app)
+if not os.path.exists("data/price_history.csv"):
+    subprocess.run(["python", "generate_data.py"])
 
+if not os.path.exists("best_models.pkl"):
+    subprocess.run(["python", "model.py"])
 # Load dataset
 df = pd.read_csv("data/price_history.csv")
 
