@@ -7,16 +7,25 @@ import joblib
 
 app = Flask(__name__)
 CORS(app)
-if not os.path.exists("data/price_history.csv"):
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+data_path = os.path.join(BASE_DIR, "data", "price_history.csv")
+model_path = os.path.join(BASE_DIR, "best_models.pkl")
+
+# Generate dataset if missing
+if not os.path.exists(data_path):
     subprocess.run(["python", "generate_data.py"])
 
-if not os.path.exists("best_models.pkl"):
+# Train models if missing
+if not os.path.exists(model_path):
     subprocess.run(["python", "model.py"])
+
 # Load dataset
-df = pd.read_csv("data/price_history.csv")
+df = pd.read_csv(data_path)
 
 # Load trained models
-models_data = joblib.load("best_models.pkl")
+models_data = joblib.load(model_path)
 
 # -----------------------------------
 # GET ALL PRODUCTS
